@@ -10,4 +10,7 @@ public class RmsofttestKsmApplication {
         SpringApplication.run(RmsofttestKsmApplication.class, args);
     }
 
+
+    asdasd
+
 }
