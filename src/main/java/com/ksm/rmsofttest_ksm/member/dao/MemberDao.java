@@ -13,6 +13,10 @@ public class MemberDao {
 
     public MemberDto test() {
         return sqlSessionTemplate.selectOne("member.selectTest1");
+
+
+
+
     }
 
 }
