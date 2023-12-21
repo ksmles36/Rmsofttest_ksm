@@ -1,6 +1,7 @@
 package com.ksm.rmsofttest_ksm.member.service;
 
 import com.ksm.rmsofttest_ksm.exception.IdDuplicateException;
+import com.ksm.rmsofttest_ksm.exception.JoinMemberException;
 import com.ksm.rmsofttest_ksm.member.dao.MemberDao;
 import com.ksm.rmsofttest_ksm.member.dto.MemberDto;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,7 @@ public class MemberService {
         int result = memberDao.joinMember(memberDto);
 
         if(result < 0)
-            throw new RuntimeException("회원가입이 실패하였습니다.");
+            throw new JoinMemberException("회원가입이 실패하였습니다.");
     }
 
     private void idDuplicateCheck(MemberDto memberDto) {

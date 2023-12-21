@@ -1,4 +1,4 @@
-package com.ksm.rmsofttest_ksm.book.dto;
+package com.ksm.rmsofttest_ksm.global.responseDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class BookApiResponse<T> {
+public class ApiResponse<T> {
 
     private int code;
     private String message;
