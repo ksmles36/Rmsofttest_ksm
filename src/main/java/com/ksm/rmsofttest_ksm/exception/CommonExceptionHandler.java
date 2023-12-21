@@ -15,7 +15,6 @@ public class CommonExceptionHandler {
     public ResponseEntity<ApiResponse<String>> handleIdDuplicateException(IdDuplicateException exception) {
         log.error(exception.getMessage());
         return new ResponseEntity<>(new ApiResponse<>(601, "Id Duplicated", exception.getMessage()), HttpStatus.OK);
-
     }
 
     @ExceptionHandler(NewBookRegistrationException.class)
