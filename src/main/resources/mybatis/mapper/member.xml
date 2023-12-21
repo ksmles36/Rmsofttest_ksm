@@ -4,11 +4,20 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member">
 
-    <select id="selectTest1" resultType="com.ksm.rmsofttest_ksm.member.dto.MemberDto">
+    <select id="selectTest1" resultType="com.ksm.rmsofttest_ksm.member.dto.MemberDtoTest">
         select MEMBER_ID memberId, NAME name, REG_DATE regDate from MEMBER
     </select>
 
+    <select id="joinMember" parameterType="com.ksm.rmsofttest_ksm.member.dto.MemberDto" resultType="int">
+        insert into member (id, name, password)
+        values (#{id}, #{name}, #{password})
+    </select>
 
+    <select id="idDuplicateCheck" parameterType="string" resultType="int">
+        select count(*)
+        from member
+        where id = #{id}
+    </select>
 
 
 </mapper>

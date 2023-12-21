@@ -29,8 +29,14 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter-test', version: '3.0.3'
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    
+    //오라클
 //    implementation group: 'com.oracle.database.jdbc', name: 'ojdbc8', version: '23.3.0.23.09'
     implementation group: 'com.oracle.database.jdbc', name: 'ojdbc10', version: '19.21.0.0'
+    
+    //postgresql
+    implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.23' 
+    runtimeOnly 'org.postgresql:postgresql' 
 
 
 }
