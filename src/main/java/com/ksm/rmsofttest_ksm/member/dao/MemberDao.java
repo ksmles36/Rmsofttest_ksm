@@ -1,7 +1,6 @@
 package com.ksm.rmsofttest_ksm.member.dao;
 
 import com.ksm.rmsofttest_ksm.member.dto.MemberDto;
-import com.ksm.rmsofttest_ksm.member.dto.MemberDtoTest;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -11,10 +10,6 @@ import org.springframework.stereotype.Repository;
 public class MemberDao {
 
     private final SqlSessionTemplate sqlSessionTemplate;
-
-    public MemberDtoTest test() {
-        return sqlSessionTemplate.selectOne("member.selectTest1");
-    }
 
     public int joinMember(MemberDto memberDto) {
         return sqlSessionTemplate.insert("member.joinMember", memberDto);
