@@ -10,22 +10,50 @@
         where book_name = #{bookName}
     </select>
 
-    <update id="bookQuantityAdd" parameterType="com.ksm.rmsofttest_ksm.book.dto.BookRegistrationDto">
+    <update id="bookQuantityAdd" parameterType="com.ksm.rmsofttest_ksm.book.dto.BookRegistrationRequest">
         update book
         set total_quantity    = total_quantity + #{regQuantity},
             loanable_quantity = loanable_quantity + #{regQuantity}
         where book_name = #{bookName}
     </update>
 
-    <insert id="bookRegistration" parameterType="com.ksm.rmsofttest_ksm.book.dto.BookRegistrationDto">
+    <insert id="bookRegistration" parameterType="com.ksm.rmsofttest_ksm.book.dto.BookRegistrationRequest">
         insert into book (book_name, total_quantity, loanable_quantity)
         values (#{bookName}, #{regQuantity}, #{regQuantity})
     </insert>
 
-    <update id="updateBookQuantity" parameterType="com.ksm.rmsofttest_ksm.book.dto.UpdateBookQuantityDto">
+    <update id="updateBookQuantity" parameterType="com.ksm.rmsofttest_ksm.book.dto.UpdateBookQuantityRequest">
         update book
         set total_quantity = #{totalQuantity}, loanable_quantity = #{loanableQuantity}
         where book_name = #{bookName}
     </update>
+
+    <select id="getBookLoanableQuantity" parameterType="com.ksm.rmsofttest_ksm.book.dto.BookLoanDto">
+        select loanable_quantity
+        from book
+        where book_id = #{bookId}
+    </select>
+
+    <update id="addBooksOnLoan" parameterType="com.ksm.rmsofttest_ksm.book.dto.BookLoanDto">
+        insert into books_on_loan (member_id, book_id)
+        values (#{memberId}, #{bookId})
+    </update>
+
+    <select id="getBookIdByBookName" parameterType="string" resultType="int">
+        select book_id
+        from book
+        where book_name = #{bookName}
+    </select>
+
+    <update id="deductLoanableQuantity" parameterType="com.ksm.rmsofttest_ksm.book.dto.BookLoanDto">
+        update book
+        set loanable_quantity = loanable_quantity - 1
+        where book_id = #{bookId}
+    </update>
+
+    <insert id="addBookLoanHistory" parameterType="com.ksm.rmsofttest_ksm.book.dto.BookLoanDto">
+        insert into book_loan_history (history_type, borrower_id, book_id)
+        values (#{historyType}, #{memberId}, #{bookId})
+    </insert>
 
 </mapper>

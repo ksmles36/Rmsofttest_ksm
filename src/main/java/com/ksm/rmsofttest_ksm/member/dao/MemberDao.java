@@ -18,4 +18,8 @@ public class MemberDao {
     public int idDuplicateCheck(String id) {
         return sqlSessionTemplate.selectOne("member.idDuplicateCheck", id);
     }
+
+    public int getMemberIdById(String id){
+        return sqlSessionTemplate.selectOne("member.getMemberId", id);
+    }
 }
