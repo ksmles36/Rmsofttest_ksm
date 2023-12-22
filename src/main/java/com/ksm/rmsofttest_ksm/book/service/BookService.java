@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -92,7 +93,6 @@ public class BookService {
             throw new NoSuchElementException("대출 가능한 도서 수량이 없습니다.");
     }
 
-
     public void bookReturn(BookReturnRequest bookReturnRequest) {
         BookLoanDto bookLoanDto = getBookLoanDto(bookReturnRequest.getId(), bookReturnRequest.getBookName());
 
@@ -121,4 +121,7 @@ public class BookService {
     }
 
 
+    public List<BookLoanHistoryResponse> getBookLoanHistory(int memberId) {
+        return bookDao.getBookLoanHistory(memberId);
+    }
 }

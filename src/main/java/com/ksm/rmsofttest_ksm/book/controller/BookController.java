@@ -1,18 +1,14 @@
 package com.ksm.rmsofttest_ksm.book.controller;
 
-import com.ksm.rmsofttest_ksm.book.dto.BookLoanReqeust;
-import com.ksm.rmsofttest_ksm.book.dto.BookRegistrationRequest;
-import com.ksm.rmsofttest_ksm.book.dto.BookReturnRequest;
-import com.ksm.rmsofttest_ksm.book.dto.UpdateBookQuantityRequest;
+import com.ksm.rmsofttest_ksm.book.dto.*;
 import com.ksm.rmsofttest_ksm.book.service.BookService;
 import com.ksm.rmsofttest_ksm.global.responseDto.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -42,6 +38,12 @@ public class BookController {
     public ResponseEntity<ApiResponse<String>> bookReturn(@RequestBody BookReturnRequest bookReturnRequest) {
         bookService.bookReturn(bookReturnRequest);
         return new ResponseEntity<>(new ApiResponse<>(200, "success", "도서를 반납하였습니다!"), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/book/loan/history")
+    public ResponseEntity<ApiResponse<List<BookLoanHistoryResponse>>> getBookLoanHistory(int memberId) {
+        List<BookLoanHistoryResponse> list = bookService.getBookLoanHistory(memberId);
+        return new ResponseEntity<>(new ApiResponse<>(200, "success", list), HttpStatus.OK);
     }
 
 

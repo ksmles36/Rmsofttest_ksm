@@ -73,4 +73,12 @@
         where book_id = #{bookId};
     </update>
 
+    <select id="getBookLoanHistory" parameterType="int" resultType="com.ksm.rmsofttest_ksm.book.dto.BookLoanHistoryResponse">
+        select history_type historyType, m.id id, b.book_name bookName, history_date date
+        from book_loan_history h
+            join member m on h.borrower_id = m.member_id
+            join book b on h.book_id = b.book_id
+        where borrower_id = #{memberId}
+    </select>
+
 </mapper>

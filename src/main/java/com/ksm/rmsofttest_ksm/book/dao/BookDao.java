@@ -1,12 +1,11 @@
 package com.ksm.rmsofttest_ksm.book.dao;
 
-import com.ksm.rmsofttest_ksm.book.dto.AddBookLoanHistoryDto;
-import com.ksm.rmsofttest_ksm.book.dto.BookLoanDto;
-import com.ksm.rmsofttest_ksm.book.dto.BookRegistrationRequest;
-import com.ksm.rmsofttest_ksm.book.dto.UpdateBookQuantityRequest;
+import com.ksm.rmsofttest_ksm.book.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -64,4 +63,7 @@ public class BookDao {
         return sqlSessionTemplate.update("book.addLoanableQuantity", bookLoanDto);
     }
 
+    public List<BookLoanHistoryResponse> getBookLoanHistory(int memberId) {
+        return sqlSessionTemplate.selectList("book.getBookLoanHistory", memberId);
+    }
 }
