@@ -18,7 +18,7 @@
     <select id="getMemberIdById" parameterType="string" resultType="int">
         select member_id
         from member
-        where id = ${id}
+        where id = #{id}
     </select>
 
 

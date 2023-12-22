@@ -20,6 +20,6 @@ public class MemberDao {
     }
 
     public int getMemberIdById(String id){
-        return sqlSessionTemplate.selectOne("member.getMemberId", id);
+        return sqlSessionTemplate.selectOne("member.getMemberIdById", id);
     }
 }

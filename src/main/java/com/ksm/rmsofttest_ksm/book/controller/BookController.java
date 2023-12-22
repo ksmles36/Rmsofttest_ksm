@@ -41,8 +41,8 @@ public class BookController {
     }
 
     @GetMapping(value = "/book/loan/history")
-    public ResponseEntity<ApiResponse<List<BookLoanHistoryResponse>>> getBookLoanHistory(int memberId) {
-        List<BookLoanHistoryResponse> list = bookService.getBookLoanHistory(memberId);
+    public ResponseEntity<ApiResponse<List<BookLoanHistoryResponse>>> getBookLoanHistory(String id) {
+        List<BookLoanHistoryResponse> list = bookService.getBookLoanHistory(id);
         return new ResponseEntity<>(new ApiResponse<>(200, "success", list), HttpStatus.OK);
     }
 

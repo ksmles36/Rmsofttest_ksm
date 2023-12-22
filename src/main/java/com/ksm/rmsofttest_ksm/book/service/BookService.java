@@ -121,7 +121,8 @@ public class BookService {
     }
 
 
-    public List<BookLoanHistoryResponse> getBookLoanHistory(int memberId) {
+    public List<BookLoanHistoryResponse> getBookLoanHistory(String id) {
+        int memberId = memberDao.getMemberIdById(id);
         return bookDao.getBookLoanHistory(memberId);
     }
 }

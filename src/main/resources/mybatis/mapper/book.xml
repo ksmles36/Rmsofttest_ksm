@@ -28,7 +28,7 @@
         where book_name = #{bookName}
     </update>
 
-    <select id="getBookLoanableQuantity" parameterType="com.ksm.rmsofttest_ksm.book.dto.BookLoanDto">
+    <select id="getBookLoanableQuantity" parameterType="com.ksm.rmsofttest_ksm.book.dto.BookLoanDto" resultType="int">
         select loanable_quantity
         from book
         where book_id = #{bookId}
@@ -74,7 +74,13 @@
     </update>
 
     <select id="getBookLoanHistory" parameterType="int" resultType="com.ksm.rmsofttest_ksm.book.dto.BookLoanHistoryResponse">
-        select history_type historyType, m.id id, b.book_name bookName, history_date date
+        select case history_type
+                   when 'L' then '대출'
+                   when 'R' then '반납'
+                   end as historyType,
+               m.id id,
+               b.book_name bookName,
+               history_date date
         from book_loan_history h
             join member m on h.borrower_id = m.member_id
             join book b on h.book_id = b.book_id
