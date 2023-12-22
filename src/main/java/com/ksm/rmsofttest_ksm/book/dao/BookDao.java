@@ -1,6 +1,7 @@
 package com.ksm.rmsofttest_ksm.book.dao;
 
 import com.ksm.rmsofttest_ksm.book.dto.BookRegistrationDto;
+import com.ksm.rmsofttest_ksm.book.dto.UpdateBookQuantityDto;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -23,5 +24,9 @@ public class BookDao {
 
     public int isExistBookName(String bookName) {
         return sqlSessionTemplate.selectOne("book.isExistBookName", bookName);
+    }
+
+    public int updateBookQuantity(UpdateBookQuantityDto updateBookQuantityDto) {
+        return sqlSessionTemplate.update("book.updateBookQuantity", updateBookQuantityDto);
     }
 }

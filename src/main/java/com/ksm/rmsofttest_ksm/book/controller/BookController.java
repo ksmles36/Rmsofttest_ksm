@@ -26,9 +26,11 @@ public class BookController {
 
     @PatchMapping(value = "/book/quantity")
     public ResponseEntity<ApiResponse<String>> updateBookQuantity(@RequestBody UpdateBookQuantityDto updateBookQuantityDto){
-        return null;
+        bookService.updateBookQuantity(updateBookQuantityDto);
+        return new ResponseEntity<>(new ApiResponse<>(200, "success", "도서 수정이 완료되었습니다."), HttpStatus.OK);
     }
 
+    
 
 
 

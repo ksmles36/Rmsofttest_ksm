@@ -22,4 +22,10 @@
         values (#{bookName}, #{regQuantity}, #{regQuantity})
     </insert>
 
+    <update id="updateBookQuantity" parameterType="com.ksm.rmsofttest_ksm.book.dto.UpdateBookQuantityDto">
+        update book
+        set total_quantity = #{totalQuantity}, loanable_quantity = #{loanableQuantity}
+        where book_name = #{bookName}
+    </update>
+
 </mapper>

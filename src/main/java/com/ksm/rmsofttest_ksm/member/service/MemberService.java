@@ -17,7 +17,6 @@ public class MemberService {
         idDuplicateCheck(memberDto);
 
         int result = memberDao.joinMember(memberDto);
-
         if(result < 0)
             throw new JoinMemberException("회원가입이 실패하였습니다.");
     }

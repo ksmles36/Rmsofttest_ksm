@@ -17,20 +17,14 @@ public class CommonExceptionHandler {
         return new ResponseEntity<>(new ApiResponse<>(601, "Id Duplicated", exception.getMessage()), HttpStatus.OK);
     }
 
-    @ExceptionHandler(NewBookRegistrationException.class)
-    public ResponseEntity<ApiResponse<String>> handleNewBookRegistrationException(NewBookRegistrationException exception) {
-        log.error(exception.getMessage());
-        return new ResponseEntity<>(new ApiResponse<>(602, "New Book Registration Fail", exception.getMessage()), HttpStatus.OK);
-    }
-
-    @ExceptionHandler(AddBookQuantityException.class)
-    public ResponseEntity<ApiResponse<String>> handleAddBookQuantityException(AddBookQuantityException exception) {
-        log.error(exception.getMessage());
-        return new ResponseEntity<>(new ApiResponse<>(603, "Add Book Quantity Fail", exception.getMessage()), HttpStatus.OK);
-    }
-
     @ExceptionHandler(JoinMemberException.class)
     public ResponseEntity<ApiResponse<String>> handleJoinMemberException(JoinMemberException exception) {
+        log.error(exception.getMessage());
+        return new ResponseEntity<>(new ApiResponse<>(603, "Join Member Fail", exception.getMessage()), HttpStatus.OK);
+    }
+
+    @ExceptionHandler(SqlExecuteFailException.class)
+    public ResponseEntity<ApiResponse<String>> handleSqlExecuteException(SqlExecuteFailException exception) {
         log.error(exception.getMessage());
         return new ResponseEntity<>(new ApiResponse<>(603, "Join Member Fail", exception.getMessage()), HttpStatus.OK);
     }
