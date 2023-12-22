@@ -53,28 +53,28 @@ public class BookService {
 
     @Transactional
     public void bookLoan(BookLoanReqeust bookLoanReqeust) {
-        BookLoanDto bookLoanDto = getBookLoanDto(bookLoanReqeust);
+        BookLoanDto bookLoanDto = getBookLoanDto(bookLoanReqeust.getId(), bookLoanReqeust.getBookName());
 
         loanPossibleCheck(bookLoanDto);
         addBooksOnLoan(bookLoanDto);
         deductLoanableQuantity(bookLoanDto);
-        addBookLoanHistory(bookLoanDto);
+        addBookLoanHistory(bookLoanDto, BookLoanHistoryType.BOOK_LOAN.code);
     }
 
-    private BookLoanDto getBookLoanDto(BookLoanReqeust bookLoanReqeust) {
-        int memberId = memberDao.getMemberIdById(bookLoanReqeust.getId());
-        int bookId = bookDao.getBookIdByBookName(bookLoanReqeust.getBookName());
+    private BookLoanDto getBookLoanDto(String id, String bookName) {
+        int memberId = memberDao.getMemberIdById(id);
+        int bookId = bookDao.getBookIdByBookName(bookName);
         return BookLoanDto.of(memberId, bookId);
     }
 
     private void deductLoanableQuantity(BookLoanDto bookLoanDto) {
         int result = bookDao.deductLoanableQuantity(bookLoanDto);
         if(result < 0)
-            throw new SqlExecuteFailException("대출가능 도서 수 차감 실패하였습니다.");
+            throw new SqlExecuteFailException("대출가능 도서 수 차감에 실패하였습니다.");
     }
 
-    private void addBookLoanHistory(BookLoanDto bookLoanDto) {
-        AddBookLoanHistoryDto addBookLoanHistoryDto = AddBookLoanHistoryDto.of(BookLoanHistoryType.BOOK_LOAN.code, bookLoanDto.getMemberId(), bookLoanDto.getBookId());
+    private void addBookLoanHistory(BookLoanDto bookLoanDto, String code) {
+        AddBookLoanHistoryDto addBookLoanHistoryDto = AddBookLoanHistoryDto.of(code, bookLoanDto.getMemberId(), bookLoanDto.getBookId());
         int result = bookDao.addBookLoanHistory(addBookLoanHistoryDto);
         if(result < 0)
             throw new SqlExecuteFailException("대출 히스토리 테이블에 추가 실패하였습니다.");
@@ -93,6 +93,32 @@ public class BookService {
     }
 
 
+    public void bookReturn(BookReturnRequest bookReturnRequest) {
+        BookLoanDto bookLoanDto = getBookLoanDto(bookReturnRequest.getId(), bookReturnRequest.getBookName());
+
+        returnPossibleCheck(bookLoanDto);
+        deleteBooksOnLoan(bookLoanDto);
+        addLoanableQuantity(bookLoanDto);
+        addBookLoanHistory(bookLoanDto, BookLoanHistoryType.BOOK_RETURN.code);
+    }
+
+    private void addLoanableQuantity(BookLoanDto bookLoanDto) {
+        int result = bookDao.addLoanableQuantity(bookLoanDto);
+        if(result < 0)
+            throw new SqlExecuteFailException("대출가능 도서 수 증가에 실패하였습니다.");
+    }
+
+    private void deleteBooksOnLoan(BookLoanDto bookLoanDto) {
+        int result = bookDao.deleteBooksOnLoan(bookLoanDto);
+        if(result < 0)
+            throw new SqlExecuteFailException("대출 중인 상태 도서 테이블에 삭제 실패하였습니다.");
+    }
+
+    private void returnPossibleCheck(BookLoanDto bookLoanDto) {
+        int count = bookDao.getBooksOnLoan(bookLoanDto);
+        if(count < 1)
+            throw new NoSuchElementException("해당 도서는 대출 중인 도서가 아닙니다.");
+    }
 
 
 }

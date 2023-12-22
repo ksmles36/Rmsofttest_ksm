@@ -56,4 +56,21 @@
         values (#{historyType}, #{memberId}, #{bookId})
     </insert>
 
+    <select id="getBooksOnLoan" parameterType="com.ksm.rmsofttest_ksm.book.dto.BookLoanDto" resultType="int">
+        select count(*)
+        from books_on_loan
+        where member_id = #{memberId} and book_id = #{bookId}
+    </select>
+
+    <delete id="deleteBooksOnLoan" parameterType="com.ksm.rmsofttest_ksm.book.dto.BookLoanDto">
+        delete from books_on_loan
+        where member_id = #{memberId} and book_id = #{bookId}
+    </delete>
+
+    <update id="addLoanableQuantity" parameterType="com.ksm.rmsofttest_ksm.book.dto.BookLoanDto">
+        update book
+        set loanable_quantity = loanable_quantity + 1
+        where book_id = #{bookId};
+    </update>
+
 </mapper>

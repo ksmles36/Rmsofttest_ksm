@@ -51,4 +51,17 @@ public class BookDao {
     public int deductLoanableQuantity(BookLoanDto bookLoanDto) {
         return sqlSessionTemplate.update("book.deductLoanableQuantity", bookLoanDto);
     }
+
+    public int getBooksOnLoan(BookLoanDto bookLoanDto) {
+        return sqlSessionTemplate.selectOne("book.getBooksOnLoan", bookLoanDto);
+    }
+
+    public int deleteBooksOnLoan(BookLoanDto bookLoanDto) {
+        return sqlSessionTemplate.delete("book.deleteBooksOnLoan", bookLoanDto);
+    }
+
+    public int addLoanableQuantity(BookLoanDto bookLoanDto) {
+        return sqlSessionTemplate.update("book.addLoanableQuantity", bookLoanDto);
+    }
+
 }

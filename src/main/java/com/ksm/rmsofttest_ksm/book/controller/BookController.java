@@ -2,6 +2,7 @@ package com.ksm.rmsofttest_ksm.book.controller;
 
 import com.ksm.rmsofttest_ksm.book.dto.BookLoanReqeust;
 import com.ksm.rmsofttest_ksm.book.dto.BookRegistrationRequest;
+import com.ksm.rmsofttest_ksm.book.dto.BookReturnRequest;
 import com.ksm.rmsofttest_ksm.book.dto.UpdateBookQuantityRequest;
 import com.ksm.rmsofttest_ksm.book.service.BookService;
 import com.ksm.rmsofttest_ksm.global.responseDto.ApiResponse;
@@ -35,6 +36,12 @@ public class BookController {
     public ResponseEntity<ApiResponse<String>> bookLoan(@RequestBody BookLoanReqeust bookLoanReqeust) {
         bookService.bookLoan(bookLoanReqeust);
         return new ResponseEntity<>(new ApiResponse<>(200, "success", "도서를 대출하였습니다!"), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/book/return")
+    public ResponseEntity<ApiResponse<String>> bookReturn(@RequestBody BookReturnRequest bookReturnRequest) {
+        bookService.bookReturn(bookReturnRequest);
+        return new ResponseEntity<>(new ApiResponse<>(200, "success", "도서를 반납하였습니다!"), HttpStatus.OK);
     }
 
 
